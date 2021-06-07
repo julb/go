@@ -1,0 +1,11 @@
+message: hello world!
+greetings:
+  julien-b: salut jul
+messagenv: not set by env
+messageflag: not set by flag
+info:
+  name: abcd
+  version: efgh
+  irn: some-irn
+  build:
+    sha: lolilol
