@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/julb/go/pkg/build"
 	"github.com/spf13/cobra"
 )
 
@@ -11,14 +12,19 @@ func init() {
 }
 
 func PrintVersion() error {
-	fmt.Println("Version is X.X.X")
+	fmt.Printf("%s %s %s\n", build.Info.Name, build.Info.Version, build.Info.Arch)
+	fmt.Printf("Built at:			%s\n", build.Info.Time)
+	fmt.Printf("Version:			%s\n", build.Info.Version)
+	fmt.Printf("Build version:		%s\n", build.Info.BuildVersion)
+	fmt.Printf("Git revision:		%s\n", build.Info.GitRevision)
+	fmt.Printf("Git short revision:	%s\n", build.Info.GitShortRevision)
 	return nil
 }
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "Print the version number of j3oas",
-	Long:  `All software has versions. This is J3OAS's`,
+	Short: "Print version information of the client",
+	Long:  `Print build and version information about the j3 client`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if err := PrintVersion(); err != nil {
 			return err

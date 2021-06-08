@@ -8,7 +8,7 @@ import (
 
 func init() {
 	// Command opts
-	rootCmd.PersistentFlags().BoolVarP(&rootCmdOptInfo, "info", "", false, "Enables the DEBUG log level.")
+	rootCmd.PersistentFlags().BoolVarP(&rootCmdOptInfo, "info", "", false, "Enables the INFO log level.")
 	rootCmd.PersistentFlags().BoolVarP(&rootCmdOptDebug, "debug", "", false, "Enables the DEBUG log level.")
 	rootCmd.PersistentFlags().BoolVarP(&rootCmdOptTrace, "trace", "", false, "Enables the TRACE log level.")
 }
