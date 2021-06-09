@@ -11,15 +11,37 @@ GO_TARGET_ARCHS=[
     {:os => 'linux', :arch => 'amd64'},
     {:os => 'darwin', :arch => 'amd64'}
 ]
+BUILD_DIR="build"
 
-# Clean task
-CLEAN.include 'bin/**/*'
+# Clean build directory
+CLEAN.include "#{BUILD_DIR}/**/*"
 
-# Disable useless tasks.
-#Rake::Task['release'].clear
-#Rake::Task['install:local'].clear
-#Rake::Task['install'].clear
+# Format the source code
+task :format do
+    sh "go fmt ./...", verbose: false
+end
 
+# Lint the source code
+task :lint do
+    sh "golangci-lint run", verbose: false
+end
+
+# Run unit tests
+namespace "test" do
+    task :run do
+        sh "go test ./...", verbose: false
+    end
+
+    task :coverage => ['clean'] do
+        sh "
+            mkdir -p #{BUILD_DIR}/test-coverage
+            go test ./... -cover -coverprofile=#{BUILD_DIR}/test-coverage/report.out
+            go tool cover -html=#{BUILD_DIR}/test-coverage/report.out -o #{BUILD_DIR}/test-coverage/report.html 
+        "
+    end
+end
+
+# Build binaries
 desc 'build all projects'
 task :build => ['clean'] do
     # Build vars.
@@ -36,7 +58,7 @@ task :build => ['clean'] do
             puts "build: #{app[:name]}:#{target_arch[:os]}:#{target_arch[:arch]}"
 
             # compile opts: output
-            output_bin = "bin/#{target_arch[:os]}-#{target_arch[:arch]}/#{app[:name]}"
+            output_bin = "#{BUILD_DIR}/binaries/#{target_arch[:os]}-#{target_arch[:arch]}/#{app[:name]}"
 
             # compile opts: ldflags.
             ld_flags="
@@ -70,14 +92,4 @@ task :build => ['clean'] do
             end
         end
     end
-end
-
-desc 'format source code'
-task :format do
-    sh "find . -name '*.go' -exec go fmt {} \\;", verbose: false
-end
-
-desc 'lint source code'
-task :lint do
-    sh "golangci-lint run"
 end
