@@ -11,13 +11,23 @@ func init() {
 	rootCmd.AddCommand(versionCmd)
 }
 
+var (
+	printVersionFormat = "%-25s%s\n"
+)
+
 func PrintVersion() error {
 	fmt.Printf("%s %s %s\n", build.Info.Name, build.Info.Version, build.Info.Arch)
-	fmt.Printf("Built at:			%s\n", build.Info.Time)
-	fmt.Printf("Version:			%s\n", build.Version)
-	fmt.Printf("Build version:		%s\n", build.Info.BuildVersion)
-	fmt.Printf("Git revision:		%s\n", build.Info.GitRevision)
-	fmt.Printf("Git short revision:	%s\n", build.Info.GitShortRevision)
+
+	fmt.Printf(printVersionFormat, "Built at:", build.Info.Time)
+	fmt.Printf(printVersionFormat, "Group:", build.Info.Group)
+	fmt.Printf(printVersionFormat, "Name:", build.Info.Name)
+	fmt.Printf(printVersionFormat, "Artifact:", build.Info.Artifact)
+	fmt.Printf(printVersionFormat, "Version:", build.Info.Version)
+	fmt.Printf(printVersionFormat, "Arch:", build.Info.Arch)
+	fmt.Printf(printVersionFormat, "Build version:", build.Info.BuildVersion)
+	fmt.Printf(printVersionFormat, "Git short revision:", build.Info.GitShortRevision)
+	fmt.Printf(printVersionFormat, "Git revision:", build.Info.GitRevision)
+
 	return nil
 }
 
