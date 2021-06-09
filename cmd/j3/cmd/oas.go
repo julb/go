@@ -25,7 +25,7 @@ var oasIndexCmd = &cobra.Command{
 	Short: "Index capabilities",
 	Long:  `Index OAS3 specifications`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		options := oas.NewIndexOptions()
+		options := oas.NewIndexOpts()
 		options.Directory = oasIndexCmdOptDirectory
 		options.Extensions = oasIndexCmdOptExtensions
 		options.Url = oasIndexCmdOptUrl

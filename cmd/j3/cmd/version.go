@@ -14,7 +14,7 @@ func init() {
 func PrintVersion() error {
 	fmt.Printf("%s %s %s\n", build.Info.Name, build.Info.Version, build.Info.Arch)
 	fmt.Printf("Built at:			%s\n", build.Info.Time)
-	fmt.Printf("Version:			%s\n", build.Info.Version)
+	fmt.Printf("Version:			%s\n", build.Version)
 	fmt.Printf("Build version:		%s\n", build.Info.BuildVersion)
 	fmt.Printf("Git revision:		%s\n", build.Info.GitRevision)
 	fmt.Printf("Git short revision:	%s\n", build.Info.GitShortRevision)
