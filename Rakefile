@@ -58,7 +58,7 @@ task :build => ['clean'] do
             puts "build: #{app[:name]}:#{target_arch[:os]}:#{target_arch[:arch]}"
 
             # compile opts: output
-            output_bin = "#{BUILD_DIR}/binaries/#{target_arch[:os]}-#{target_arch[:arch]}/#{app[:name]}"
+            output_bin = "#{BUILD_DIR}/bin/#{target_arch[:os]}/#{target_arch[:arch]}/#{app[:name]}"
 
             # compile opts: ldflags.
             ld_flags="
@@ -82,12 +82,12 @@ task :build => ['clean'] do
             ", verbose: false
 
             # compute: md5
-            open("#{output_bin}.md5sum", 'w') do |f|
+            open("#{output_bin}.md5", 'w') do |f|
                 f.puts Digest::MD5.hexdigest File.read output_bin
             end
 
             # compute: sha256
-            open("#{output_bin}.sha256sum", 'w') do |f|
+            open("#{output_bin}.sha256", 'w') do |f|
                 f.puts Digest::SHA256.hexdigest File.read output_bin
             end
         end
