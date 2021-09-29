@@ -7,5 +7,19 @@ info:
   name: abcd
   version: efgh
   irn: some-irn
-  build:
-    sha: lolilol
+  tags:
+    - tag1
+    - tag2
+    - tag3
+  labels:
+    - name: a
+    - name: b
+
+logging:
+  level: trace
+
+server:
+  tls:
+    enabled: true
+    certificate: /home/julb/projects/go/src/github.com/julb/go/example.crt
+    certificateKey: /home/julb/projects/go/src/github.com/julb/go/example.key

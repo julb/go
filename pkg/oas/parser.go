@@ -1,11 +1,12 @@
 package oas
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"path/filepath"
 
-	log "github.com/sirupsen/logrus"
+	json "github.com/json-iterator/go"
+
+	log "github.com/julb/go/pkg/logging"
 
 	"gopkg.in/yaml.v3"
 )

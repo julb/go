@@ -1,15 +1,17 @@
 package oas
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 
+	json "github.com/json-iterator/go"
+
 	"github.com/Masterminds/semver/v3"
-	log "github.com/sirupsen/logrus"
+
+	log "github.com/julb/go/pkg/logging"
 
 	"gopkg.in/yaml.v3"
 )
@@ -144,7 +146,7 @@ func Index(opts *IndexOpts) error {
 func scanFiles(o *IndexOpts) ([]string, error) {
 	var files []string
 
-	filepath.Walk(o.Directory, func(path string, f os.FileInfo, _ error) error {
+	err := filepath.Walk(o.Directory, func(path string, f os.FileInfo, _ error) error {
 		if !f.IsDir() {
 			// Skip root index.yaml
 			if path == filepath.Join(o.Directory, "index.yaml") {
@@ -168,6 +170,10 @@ func scanFiles(o *IndexOpts) ([]string, error) {
 		}
 		return nil
 	})
+
+	if err != nil {
+		return nil, err
+	}
 
 	return files, nil
 }

@@ -1,15 +1,15 @@
 package build
 
 type BuildInfo struct {
-	Group            string
-	Artifact         string
-	Name             string
-	Version          string
-	BuildVersion     string
-	Time             string
-	GitRevision      string
-	GitShortRevision string
-	Arch             string
+	Group            string `yaml:"group" json:"group"`
+	Artifact         string `yaml:"artifact" json:"artifact"`
+	Name             string `yaml:"name" json:"name"`
+	Version          string `yaml:"version" json:"version"`
+	BuildVersion     string `yaml:"buildVersion" json:"buildVersion"`
+	Time             string `yaml:"time" json:"time"`
+	GitRevision      string `yaml:"gitRevision" json:"gitRevision"`
+	GitShortRevision string `yaml:"gitShortRevision" json:"gitShortRevision"`
+	Arch             string `yaml:"arch" json:"arch"`
 }
 
 var Group string

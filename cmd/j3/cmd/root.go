@@ -3,7 +3,7 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 
-	log "github.com/sirupsen/logrus"
+	log "github.com/julb/go/pkg/logging"
 )
 
 func init() {
@@ -22,13 +22,13 @@ var rootCmd = &cobra.Command{
 	Long:  `blablabla`,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		if rootCmdOptTrace {
-			log.SetLevel(log.TraceLevel)
+			log.SetLevel("trace")
 		} else if rootCmdOptDebug {
-			log.SetLevel(log.DebugLevel)
+			log.SetLevel("debug")
 		} else if rootCmdOptInfo {
-			log.SetLevel(log.InfoLevel)
+			log.SetLevel("info")
 		} else {
-			log.SetLevel(log.WarnLevel)
+			log.SetLevel("warn")
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
@@ -36,6 +36,9 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-func ExecuteMainCmd() error {
-	return rootCmd.Execute()
+func ExecuteMainCmd() {
+	err := rootCmd.Execute()
+	if err != nil {
+		log.Fatalf("Error when executing command %s", err)
+	}
 }

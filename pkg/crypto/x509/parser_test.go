@@ -1,0 +1,59 @@
+package x509
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
+
+func Test_WhenParsePemContentAndGetMetadata_ShouldReturnAppropriateMetadata(t *testing.T) {
+	bytes := []byte(`-----BEGIN CERTIFICATE-----
+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
+-----END CERTIFICATE-----`)
+
+	// parse pem
+	tlsCertificateMetadata, err := ParsePemContentAndGetMetadata(bytes)
+	assert.Nil(t, err)
+
+	assert.Equal(t, "localhost", tlsCertificateMetadata.IssuerCN)
+	assert.Equal(t, "localhost", tlsCertificateMetadata.SubjectCN)
+	assert.Nil(t, tlsCertificateMetadata.Sans)
+	assert.Equal(t, "3479478a8860429a96515c97384a7874570ffe32", tlsCertificateMetadata.SerialNumber)
+	assert.Equal(t, "ec582773d26c7fe3780488a3aff42e0ccbd11686", tlsCertificateMetadata.Sha1Fingerprint)
+	assert.Equal(t, "2021-10-12T13:25:47Z", tlsCertificateMetadata.Validity.From)
+	assert.Equal(t, "2031-10-10T13:25:47Z", tlsCertificateMetadata.Validity.To)
+	assert.NotNil(t, tlsCertificateMetadata.Validity.RemainingDays)
+	assert.NotNil(t, tlsCertificateMetadata.Validity.Expired)
+	assert.NotNil(t, tlsCertificateMetadata.Validity.Valid)
+}

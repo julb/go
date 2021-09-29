@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	log "github.com/sirupsen/logrus"
+
+	log "github.com/julb/go/pkg/logging"
 )
 
 func main() {
